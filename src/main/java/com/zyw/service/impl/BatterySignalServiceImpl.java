@@ -51,15 +51,20 @@ public class BatterySignalServiceImpl implements BatterySignalService {
     }
 
     @Override
-    public List<WarningResponse> submitBatterySignal(List<WarningRequest> requests) throws JsonProcessingException, SignalException, MQBrokerException, RemotingException, InterruptedException, MQClientException {
+    public List<WarningResponse> submitBatterySignal(List<WarningRequest> requests) throws JsonProcessingException, MQBrokerException, RemotingException, InterruptedException, MQClientException {
         // 1.创建 responseList，用于返回数据
         List<WarningResponse> responseList = new ArrayList<>();
         // 2.依次处理每个请求（处理过程采用责任链模式）
         for (WarningRequest request : requests) {
+            System.out.println(request);
             SignalAnalyseContext context = new SignalAnalyseContext();
             context.setRequest(request);
             context.setResponseList(responseList);
-            signalAnalyseHandler.handle(context);
+            try{
+                signalAnalyseHandler.handle(context);
+            }catch (SignalException signalException){
+                context.getResponseList().add(null);
+            }
         }
         // 3.返回结果
         return responseList;

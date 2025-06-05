@@ -35,9 +35,9 @@ public class VehicleInfoController {
         return Result.success(vehicleInfo);
     }
 
-    @DeleteMapping("/{vid}")
-    public Result<String> deleteVehicle(@PathVariable String vid) {
-        if (vehicleInfoService.deleteVehicle(vid)) {
+    @DeleteMapping("/{vin}")
+    public Result<String> deleteVehicle(@PathVariable String vin) {
+        if (vehicleInfoService.deleteVehicle(vin)) {
             return Result.success("删除数据成功！");
         }
         return Result.error("删除数据失败！");

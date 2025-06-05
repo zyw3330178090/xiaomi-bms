@@ -18,7 +18,7 @@ public interface VehicleInfoService {
 
     boolean updateVehicle(VehicleInfo vehicleInfo);
 
-    boolean deleteVehicle(String vid);
+    boolean deleteVehicle(String vin);
 
 }
 

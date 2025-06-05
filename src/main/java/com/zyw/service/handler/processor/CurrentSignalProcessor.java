@@ -37,10 +37,13 @@ public class CurrentSignalProcessor extends SignalProcessor {
         Double lx = batterySignal.getIx();
         Double li = batterySignal.getIi();
         if (lx == null || li == null) {
-            throw new SignalException("400", "电流参数不完整！");
+            return;
         }
         // 3.判断预警等级
         String ruleStr = ruleMapper.getRule(2, context.getBatteryType());
+        if(ruleStr==null){
+            return;
+        }
         CurrentAlarmRuleParser parser = new CurrentAlarmRuleParser(ruleStr);
         Integer warnLevel = parser.calculateAlarmLevel(batterySignal);
         context.setWarnName("电流差报警");

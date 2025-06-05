@@ -35,6 +35,9 @@ public class VoltageSignalProcessor extends SignalProcessor {
         }
         // 3.判断预警等级
         String ruleStr = ruleMapper.getRule(1, context.getBatteryType());
+        if(ruleStr==null){
+            throw new SignalException("400", "电池信号不存在");
+        }
         VoltageAlarmRuleParser parser = new VoltageAlarmRuleParser(ruleStr);
         boolean flag=context.getWarnName()==null;
         context.setWarnName("电压差报警");

@@ -21,16 +21,14 @@ public class VehicleInfoServiceImpl implements VehicleInfoService {
 
     @Override
     public boolean addVehicleInfo(VehicleInfo vehicleInfo) {
-        if (!StringUtils.hasText(vehicleInfo.getVid())) {
-            vehicleInfo.setVid(UUID.randomUUID().toString().replace("-", "").substring(0, 16));
-        }
+        vehicleInfo.setVid(UUID.randomUUID().toString().replace("-", "").substring(0, 16));
         return vehicleInfoMapper.insert(vehicleInfo);
     }
 
     @Override
     public boolean addVehicleInfos(List<VehicleInfo> vehicleInfos) {
-        for(VehicleInfo vehicleInfo:vehicleInfos){
-            if(!addVehicleInfo(vehicleInfo)){
+        for (VehicleInfo vehicleInfo : vehicleInfos) {
+            if (!addVehicleInfo(vehicleInfo)) {
                 return false;
             }
         }
@@ -58,7 +56,7 @@ public class VehicleInfoServiceImpl implements VehicleInfoService {
     }
 
     @Override
-    public boolean deleteVehicle(String vid) {
-        return vehicleInfoMapper.delete(vid);
+    public boolean deleteVehicle(String vin) {
+        return vehicleInfoMapper.delete(vin);
     }
 }

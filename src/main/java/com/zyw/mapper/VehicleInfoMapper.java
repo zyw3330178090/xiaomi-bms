@@ -31,6 +31,6 @@ public interface VehicleInfoMapper {
             "WHERE vid = #{vid}")
     boolean update(VehicleInfo vehicleInfo);
 
-    @Delete("delete from vehicle_info where vid = #{vid}")
-    boolean delete(String vid);
+    @Delete("delete from vehicle_info where vin = #{vin}")
+    boolean delete(String vin);
 }
